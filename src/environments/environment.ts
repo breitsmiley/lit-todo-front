@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiBackendURL: 'http://api.lit-todo.loc:3000/graphql',
 };
 
 /*

@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AuthComponent } from './auth/auth.component';
+import { GraphQLModule } from './graphql.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,9 +16,12 @@ import { AuthComponent } from './auth/auth.component';
   imports: [
     NgbModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GraphQLModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

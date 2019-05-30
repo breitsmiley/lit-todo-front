@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "lit-todo-fron": {
+    "lit-todo-front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/lit-todo-fron",
+            "outputPath": "dist/lit-todo-front",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -61,18 +61,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "lit-todo-fron:build"
+            "browserTarget": "lit-todo-front:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "lit-todo-fron:build:production"
+              "browserTarget": "lit-todo-front:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "lit-todo-fron:build"
+            "browserTarget": "lit-todo-front:build"
           }
         },
         "test": {
@@ -109,15 +109,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "lit-todo-fron:serve"
+            "devServerTarget": "lit-todo-front:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "lit-todo-fron:serve:production"
+              "devServerTarget": "lit-todo-front:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "lit-todo-fron"
+  "defaultProject": "lit-todo-front"
 }
