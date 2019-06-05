@@ -32,33 +32,39 @@ query userTTT($id: Float!) {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  rates: any[];
-  loading = true;
-  error: any;
+  // loadedNav = 'todo';
+
+  // rates: any[];
+  // loading = true;
+  // error: any;
 
   title = 'lit-todo-front';
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit() {
-    this.apollo
-      .watchQuery({
-        query: userTTT,
-      // .watchQuery({
-      //   query: userTTT,
-        variables: {
-          id: 1.1,
-        },
-      })
-      .valueChanges.subscribe(result => {
-        // const aaa: ApolloQueryResult = result;
-      // this.rates = result.data && result.data.rates;
-      // this.loading = result.loading;
-      // this.error = result.error;
-      // const aaa:any = result.data;
-      const data = result.data;
-      const a = <AAA> data;
-      console.log(a);
-    });
+    // this.apollo
+    //   .watchQuery({
+    //     query: userTTT,
+    //   // .watchQuery({
+    //   //   query: userTTT,
+    //     variables: {
+    //       id: 1.1,
+    //     },
+    //   })
+    //   .valueChanges.subscribe(result => {
+    //     // const aaa: ApolloQueryResult = result;
+    //   // this.rates = result.data && result.data.rates;
+    //   // this.loading = result.loading;
+    //   // this.error = result.error;
+    //   // const aaa:any = result.data;
+    //   const data = result.data;
+    //   const a = <AAA> data;
+    //   console.log(a);
+    // });
+  }
+
+  onNavigate(feature: string) {
+    // this.loadedFeature = feature;
   }
 }
