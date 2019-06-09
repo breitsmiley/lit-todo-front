@@ -4,6 +4,11 @@
     <ngb-alert type="danger" [dismissible]="false" *ngIf="error">
         <p>{{ error }}</p>
     </ngb-alert>
+    <div *ngIf="isLoading" class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
     <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
       <div class="form-group">
         <label for="email">Почта</label>
