@@ -9,18 +9,20 @@
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+    <form class="needs-validation"novalidate [formGroup]="authForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+      <div formGroupName="userData">
       <div class="form-group">
         <label for="email">Почта</label>
         <input
                 type="email"
                 id="email"
                 class="form-control"
-                ngModel
-                name="email"
-                required
-                email
+                formControlName="email"
+                [class.is-invalid]="!authForm.get('userData.email').valid && authForm.get('userData.email').touched"
         />
+        <div class="invalid-feedback">
+          Укажите правильную почту!
+        </div>
       </div>
       <div class="form-group">
         <label for="password">Пароль</label>
@@ -28,11 +30,12 @@
                 type="password"
                 id="password"
                 class="form-control"
-                ngModel
-                name="password"
-                required
-                minlength="3"
+                formControlName="password"
+                [class.is-invalid]="!authForm.get('userData.password').valid && authForm.get('userData.password').touched"
         />
+        <div class="invalid-feedback">
+          Укажите правильный пароль: не менее 3х символов
+        </div>
       </div>
       <div>
         <button
@@ -46,6 +49,7 @@
         <button class="btn btn-link" (click)="onSwitchMode()" type="button">
           {{ isLoginMode ? 'Регистрация' : 'Вход' }}
         </button>
+      </div>
       </div>
     </form>
   </div>

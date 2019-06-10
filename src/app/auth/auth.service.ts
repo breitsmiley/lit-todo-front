@@ -4,6 +4,7 @@ import { catchError, tap, map } from 'rxjs/operators';
 import { IUserData, User } from "./user.model";
 import { Router } from "@angular/router";
 import { AuthSignupGql,AuthLoginGql } from "../graphql";
+import { AuthError } from "./auth.error";
 
 interface IAuthJwtPayload {
   id: number;
@@ -34,7 +35,7 @@ export class AuthService {
       const payloadStr = token.split('.')[1];
       return JSON.parse(atob(payloadStr));
     } catch(e) {
-      throwError('Parse JWT payload Error');
+      throw Error('Parse JWT payload Error');
     }
   }
 
@@ -44,6 +45,7 @@ export class AuthService {
       email: email,
       password: password,
     }).pipe(
+
       tap(({data, errors}) => {
         
         if (errors) {
@@ -55,6 +57,8 @@ export class AuthService {
         }
 
       }),
+      catchError(this.handleException),
+
     );
   }
 
@@ -65,7 +69,6 @@ export class AuthService {
       password: password,
     }).pipe(
       tap(({data, errors}) => {
-
         if (errors) {
           this.handleError(errors);
         } else {
@@ -74,6 +77,7 @@ export class AuthService {
           this.handleAuthentication(token, jwtData);
         }
       }),
+      catchError(this.handleException),
     );
   }
 
@@ -161,6 +165,26 @@ export class AuthService {
   }
 
   private handleError(errorRes) {
-    throw Error(errorRes[0].message);
+    let errorMsg = errorRes[0].message;
+
+    // TODO стандартизация ошибок на бэкенд
+    if (errorMsg.hasOwnProperty('message')) {
+      errorMsg = Object.values(errorMsg.message[0].constraints)[0];
+    }
+
+    throw new AuthError(errorMsg);
+  }
+
+  private handleException(errorRes) {
+
+    let errorMsg = 'An unknown error occurred!';
+    if (errorRes instanceof AuthError) {
+      errorMsg = errorRes.message;
+    }
+    // console.log('handleException', errorRes.graphQLErrors);
+    // console.log('handleException', errorRes.networkError);
+
+    return throwError(errorMsg);
+
   }
 }

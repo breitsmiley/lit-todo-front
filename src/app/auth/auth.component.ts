@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AuthService } from "./auth.service";
 import { Router } from "@angular/router";
-import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -13,29 +12,43 @@ export class AuthComponent implements OnInit {
   isLoginMode = true;
   isLoading = false;
   error: string = null;
+  authForm: FormGroup;
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.authForm = this.fb.group({
+      userData: this.fb.group({
+        email: [null, [Validators.required, Validators.email]],
+        password: [null, [Validators.required, Validators.minLength(3)]]
+      })
+    });
   }
 
   onSwitchMode() {
+    this.authForm.reset();
+    this.error = null;
     this.isLoginMode = !this.isLoginMode;
   }
 
-  onSubmit(form: NgForm) {
-    if (!form.valid) {
+  onSubmit() {
+
+    if (!this.authForm.valid) {
       return;
     }
+
     this.error = null;
-    const email = form.value.email;
-    const password = form.value.password;
+
+    const userData = this.authForm.get('userData').value;
+    const email = userData.email;
+    const password = userData.password;
 
     let authObs;
-    
+
     this.isLoading = true;
 
     if (this.isLoginMode) {
@@ -46,34 +59,17 @@ export class AuthComponent implements OnInit {
 
     authObs.subscribe(
       resData => {
-        // console.log(resData);
         this.isLoading = false;
         // this.router.navigate(['/recipes']);
         this.router.navigate(['']);
       },
       errorMessage => {
-        this.error = errorMessage.message;
-        // this.showErrorAlert(errorMessage);
+        this.error = errorMessage;
         this.isLoading = false;
       }
     );
 
-    // console.log(authObs);
-    //
-    // authObs.subscribe(result => {
-    // // const aaa: ApolloQueryResult = result;
-    // // this.rates = result.data && result.data.rates;
-    // // this.loading = result.loading;
-    // // this.error = result.error;
-    // // const aaa:any = result.data;
-    // // const data = result.data;
-    // // const a = <AAA> data;
-    // console.log(result);
-    //
-    // });
-    // console.log(authObs);
-
-    form.reset();
+    this.authForm.reset();
   }
 
 }

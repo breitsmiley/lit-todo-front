@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { Apollo, ApolloModule } from "apollo-angular";
@@ -29,7 +29,8 @@ import { AuthService } from "./auth/auth.service";
   imports: [
     NgbModule,
     BrowserModule,
-    FormsModule,
+    // FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     // GraphQLModule,
     // HttpClientModule,
@@ -53,24 +54,24 @@ export class AppModule {
 
     // const errorLink = onError(({ graphQLErrors, networkError,  operation, forward  }) => {
     //   if (graphQLErrors) {
-    //     graphQLErrors.map(({ message, locations, path }) => {
-    //       // console.log(
-    //       //   `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-    //       // );
-    //       // throw new Error('LKljljlkjlk');
-    //       return throwError('AAAAAAAAAAAAAAAAAAAAAA');
-    //     });
+    //     graphQLErrors.map(({ message, locations, path }) =>
+    //       console.log(
+    //         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+    //       ),
+    //     );
+    //     // throw new Error('Some graphQLErrors');
     //   }
     //
     //
-    //   // if (networkError) console.log(`[Network error]: ${networkError}`);
-    //
-    //   // console.log('PPPPPPPPPPPPPPp');
+    //   if (networkError) {
+    //     console.log(`[Network error]:`, networkError);
+    //     // throw new Error('Some Server problems');
+    //   }
     //
     //   // throw new Error('Valid token not returned');
     //   // return <any>throwError('AAAAAAAAAAAAAAAAAAAAAA');
     //   // return forward(operation);
-    //   return forward(operation);
+    //   // return forward(operation);
     // });
 
     const authLink = new ApolloLink((operation, forward) => {

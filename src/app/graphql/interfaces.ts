@@ -1,3 +1,3 @@
 export interface AppAuthLoginData {
-  token: string;
+  token: string; 
 }
