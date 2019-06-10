@@ -108,8 +108,8 @@ export class AppModule {
           errorPolicy: 'all'
         },
         mutate: {
+          fetchPolicy: 'no-cache',
           errorPolicy: 'all',
-          fetchPolicy: 'network-only',
         }
       }
     });

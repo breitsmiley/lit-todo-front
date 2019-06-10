@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Query } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { AppAuthLoginData } from "./interfaces";
 
-export interface AppAuthLoginData {
-  token: string;
-}
+
 export interface AppAuthLoginResponse {
   login: AppAuthLoginData;
 }
@@ -12,7 +11,7 @@ export interface AppAuthLoginResponse {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGQL extends Query<AppAuthLoginResponse> {
+export class AuthLoginGql extends Query<AppAuthLoginResponse> {
 
   document = gql`
     query login($email: String!, $password: String!) {

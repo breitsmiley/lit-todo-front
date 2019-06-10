@@ -1,46 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Apollo } from "apollo-angular";
-import gql from "graphql-tag";
 import { throwError, Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
-import { AuthGQL } from "../graphql/auth-gql";
-import { onError } from 'apollo-link-error';
 import { IUserData, User } from "./user.model";
 import { Router } from "@angular/router";
-import { GraphQLError } from 'graphql';
-
-
-// export interface AAA {
-//   user: {
-//     id: number;
-//     name: string;
-//     createdAt: number;
-//     ttt: string;
-//   }
-// }
-
-// export interface AuthResponseData {
-//   kind: string;
-//   idToken: string;
-//   email: string;
-//   refreshToken: string;
-//   expiresIn: string;
-//   localId: string;
-//   registered?: boolean;
-// }
-
-// // We use the gql tag to parse our query string into a query document
-// const userTTT = gql`
-// query userTTT($id: Float!) {
-//   user(id: $id) {
-//     id,
-//     name,
-//     createdAt,
-//     ttt
-//   }
-// }
-// `;
-
+import { AuthSignupGql,AuthLoginGql } from "../graphql";
 
 interface IAuthJwtPayload {
   id: number;
@@ -61,7 +24,8 @@ export class AuthService {
 
   // constructor(private apollo: Apollo) { }
   constructor(
-    private authGQL: AuthGQL,
+    private authLoginGql: AuthLoginGql,
+    private authSignupGql: AuthSignupGql,
     private router: Router
   ) { }
 
@@ -76,7 +40,7 @@ export class AuthService {
 
   login(email: string, password: string) {
 
-    return this.authGQL.fetch({
+    return this.authLoginGql.fetch({
       email: email,
       password: password,
     }).pipe(
@@ -94,30 +58,25 @@ export class AuthService {
     );
   }
 
+  signup(email: string, password: string) {
 
-  // login(email: string, password: string) {
-  //   return this.http
-  //     .post<AuthResponseData>(
-  //       'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDb0xTaRAoxyCgvaDF3kk5VYOsTwB_3o7Y',
-  //       {
-  //         email: email,
-  //         password: password,
-  //         returnSecureToken: true
-  //       }
-  //     )
-  //     .pipe(
-  //       catchError(this.handleError),
-  //       tap(resData => {
-  //         this.handleAuthentication(
-  //           resData.email,
-  //           resData.localId,
-  //           resData.idToken,
-  //           +resData.expiresIn
-  //         );
-  //       })
-  //     );
-  // }
-  //
+    return this.authSignupGql.mutate({
+      email: email,
+      password: password,
+    }).pipe(
+      tap(({data, errors}) => {
+
+        if (errors) {
+          this.handleError(errors);
+        } else {
+          const token = data.signup.token;
+          const jwtData = this.getJwtPayloadFromToken(token);
+          this.handleAuthentication(token, jwtData);
+        }
+      }),
+    );
+  }
+
   
   autoLogin() {
     const user = this.getUserFromLocalStorage();

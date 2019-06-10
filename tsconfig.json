@@ -19,5 +19,8 @@
       "dom",
       "esnext.asynciterable"
     ]
-  }
+  },
+  "files": [
+    "src/polyfills.ts"
+  ]
 }

@@ -6,7 +6,7 @@ export interface IUserData {
   tokenExpirationTS: number;
 }
 
-export class User implements IUserData{
+export class User {
   constructor(
     public id: number,
     public email: string,

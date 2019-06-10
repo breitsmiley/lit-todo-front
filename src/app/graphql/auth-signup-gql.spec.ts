@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthGQL } from './auth-gql';
+import { AuthSignupGql } from './auth-signup-gql';
 
-describe('AuthGQL', () => {
+describe('AuthSignupGql', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AuthGql = TestBed.get(AuthGql);
+    const service: AuthSignupGql = TestBed.get(AuthSignupGql);
     expect(service).toBeTruthy();
   });
 });
