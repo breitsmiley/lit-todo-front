@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
 
+  isShowMobileMenu = false;
   isAuthenticated = false;
   private userSub: Subscription;
 
@@ -23,6 +24,10 @@ export class HeaderComponent implements OnInit {
       // console.log(this.isAuthenticated );
       // console.log(!!user);
     });
+  }
+
+  onMobileMenu() {
+    this.isShowMobileMenu = !this.isShowMobileMenu;
   }
 
   onLogout() {

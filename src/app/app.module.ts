@@ -18,6 +18,11 @@ import { HeaderComponent } from './header/header.component';
 
 import { environment } from "../environments/environment";
 import { AuthService } from "./auth/auth.service";
+import { TodoListComponent } from './todo-list/todo-list.component';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faBan, faSignOutAlt, faSignInAlt, faBars, faPlus, faCheck, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 
 @NgModule({
@@ -25,6 +30,7 @@ import { AuthService } from "./auth/auth.service";
     AppComponent,
     HeaderComponent,
     AuthComponent,
+    TodoListComponent,
   ],
   imports: [
     NgbModule,
@@ -37,6 +43,7 @@ import { AuthService } from "./auth/auth.service";
     ApolloModule,
     HttpLinkModule,
     HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -48,6 +55,12 @@ export class AppModule {
     private httpLink: HttpLink,
     private authService: AuthService
   ) {
+
+    // FontAwesomeModule
+    //--------------------------------
+    library.add(faBan,faSignOutAlt, faSignInAlt, faBars, faPlus, faCheck, faEdit);
+    //--------------------------------
+
     // TODO заменить на useFactory https://github.com/apollographql/apollo-angular/issues/1062
     const uri = environment.apiBackendURL;
     const link = httpLink.create({uri});

@@ -1,4 +1,5 @@
-<h1>{{ isLoginMode ? 'Авторизация' : 'Регистрация' }}</h1>
+<div class="container">
+<h1>{{ isLoginMode ? 'Authorization' : 'Registration' }}</h1>
 <div class="row">
   <div class="col-xs-12 col-md-6 col-md-offset-3">
     <ngb-alert type="danger" [dismissible]="false" *ngIf="error">
@@ -12,7 +13,7 @@
     <form class="needs-validation"novalidate [formGroup]="authForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
       <div formGroupName="userData">
       <div class="form-group">
-        <label for="email">Почта</label>
+        <label for="email">Email</label>
         <input
                 type="email"
                 id="email"
@@ -21,11 +22,11 @@
                 [class.is-invalid]="!authForm.get('userData.email').valid && authForm.get('userData.email').touched"
         />
         <div class="invalid-feedback">
-          Укажите правильную почту!
+          Set valid email!
         </div>
       </div>
       <div class="form-group">
-        <label for="password">Пароль</label>
+        <label for="password">Password</label>
         <input
                 type="password"
                 id="password"
@@ -34,7 +35,7 @@
                 [class.is-invalid]="!authForm.get('userData.password').valid && authForm.get('userData.password').touched"
         />
         <div class="invalid-feedback">
-          Укажите правильный пароль: не менее 3х символов
+          Set valid password: more then 2 symbols
         </div>
       </div>
       <div>
@@ -43,14 +44,15 @@
                 type="submit"
                 [disabled]="!authForm.valid"
         >
-          {{ isLoginMode ? 'Войти' : 'Зарегистрироваться' }}
+          {{ isLoginMode ? 'Login' : 'SignUp' }}
         </button>
         |
         <button class="btn btn-link" (click)="onSwitchMode()" type="button">
-          {{ isLoginMode ? 'Регистрация' : 'Вход' }}
+          {{ isLoginMode ? 'Registration' : 'Authorization' }}
         </button>
       </div>
       </div>
     </form>
   </div>
+</div>
 </div>

@@ -1,0 +1,84 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <nav id="sidebar" [class.active]="isShowSidebarMenu">
+    <ul class="list-unstyled components">
+      <li>
+        <a href="#">Today</a>
+      </li>
+      <li>
+        <a href="#">Next 7 days</a>
+      </li>
+    </ul>
+    <ul class="list-unstyled projects">
+      <p>Projects</p>
+      <li *ngFor="let oneProject of projects">
+        <a href="#">
+          <i class="project-icon" [style.background]="oneProject.color"></i>{{oneProject.name}}
+          <span class="project-total">({{oneProject.total}})</span>
+        </a>
+        <div class="project-toolbar">
+          <a href="#">Edit</a>
+          <a href="#">Delete</a>
+        </div>
+      </li>
+    </ul>
+    <div class="project-add-toolbar">
+      <a href="#">+Add Project</a>
+    </div>
+  </nav>
+
+  <!-- Page Content  -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button type="button" class="btn btn-info" (click)="onSidebarMenu()" >
+          <fa-icon icon="bars"></fa-icon>
+        </button>
+      <div class="nav navbar-nav ml-auto">
+        <button type="button" class="btn btn-secondary mr-auto">
+          <fa-icon icon="ban"></fa-icon>
+        </button>
+      </div>
+    </nav>
+
+    <h1>Today {{ todayDate | date }}  </h1>
+    <table id="task-table" class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Task</th>
+        <th scope="col">Project</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let oneTask of tasks; index as i">
+        <td>
+          {{ oneTask.date | date }}
+        </td>
+        <td>
+          <i class="task-icon" [style.background]="oneTask.color"></i>
+          {{ oneTask.name }}
+        </td>
+        <td>
+          <i class="project-icon" [style.background]="oneTask.projectColor"></i>
+          {{ oneTask.project }}
+        </td>
+        <td class="task-toolbar">
+          <button type="button" class="btn btn-success btn-sm">
+            <fa-icon icon="check"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-info btn-sm">
+            <fa-icon icon="edit"></fa-icon>
+          </button>
+          <button type="button" class="btn btn-danger btn-sm">
+            <fa-icon icon="ban"></fa-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="task-add-toolbar">
+      <a href="#">+Add Project</a>
+    </div>
+  </div>
+</div>
