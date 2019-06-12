@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBackendURL: 'http://api.lit-todo.loc:3000/graphql',
+  apiBackendURL: 'http://api.lit-todo.loc/graphql',
 };
 
 /*
